@@ -483,7 +483,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiGetMemberQuestlistResponse"
+                  "$ref": "#/components/schemas/ApiResponseOfApiGetMemberQuestlistResponse"
                 }
               }
             }
@@ -547,7 +547,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiGetMemberRequireInfoResponse"
+                  "$ref": "#/components/schemas/ApiResponseOfApiGetMemberRequireInfoResponse"
                 }
               }
             }
@@ -575,7 +575,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiShip2Response"
+                }
+              }
+            }
           }
         }
       }
@@ -604,7 +611,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiGetMemberShip3Response"
+                  "$ref": "#/components/schemas/ApiResponseOfApiGetMemberShip3Response"
                 }
               }
             }
@@ -668,7 +675,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiGetMemberSlotItemResponse"
+                  "$ref": "#/components/schemas/ApiResponseListOfApiGetMemberSlotItemResponse"
                 }
               }
             }
@@ -732,7 +739,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiGetMemberUnsetslotResponse"
+                  "$ref": "#/components/schemas/ApiResponseOfApiGetMemberUnsetslotResponse"
                 }
               }
             }
@@ -3576,7 +3583,7 @@
         }
       }
     },
-    "/api_start2/get_data": {
+    "/api_start2/getData": {
       "post": {
         "tags": [
           "api_start2"
@@ -3600,7 +3607,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiStart2GetDataResponse"
+                  "$ref": "#/components/schemas/ApiResponseOfApiStart2GetDataResponse"
                 }
               }
             }
@@ -3830,7 +3837,7 @@
       },
       "FleetDataDto": {
         "type": "object",
-        "description": "api_get_member/deck \napi_req_hensei/preset_select",
+        "description": "api_get_member/deck \napi_get_member/ship2 \napi_req_hensei/preset_select",
         "additionalProperties": false,
         "properties": {
           "api_flagship": {
@@ -4876,6 +4883,22 @@
           }
         }
       },
+      "ApiResponseOfApiGetMemberQuestlistResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "api_data": {
+            "$ref": "#/components/schemas/ApiGetMemberQuestlistResponse"
+          },
+          "api_result": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "api_result_msg": {
+            "type": "string"
+          }
+        }
+      },
       "ApiGetMemberQuestlistResponse": {
         "type": "object",
         "additionalProperties": false,
@@ -5108,6 +5131,22 @@
           }
         }
       },
+      "ApiResponseOfApiGetMemberRequireInfoResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "api_data": {
+            "$ref": "#/components/schemas/ApiGetMemberRequireInfoResponse"
+          },
+          "api_result": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "api_result_msg": {
+            "type": "string"
+          }
+        }
+      },
       "ApiGetMemberRequireInfoResponse": {
         "type": "object",
         "additionalProperties": false,
@@ -5153,14 +5192,7 @@
             }
           },
           "api_unsetslot": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "array",
-              "items": {
-                "type": "integer",
-                "format": "int32"
-              }
-            }
+            "$ref": "#/components/schemas/ApiGetMemberUnsetslotResponse"
           },
           "api_useitem": {
             "type": "array",
@@ -5250,6 +5282,16 @@
           }
         }
       },
+      "ApiGetMemberUnsetslotResponse": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "ApiUseitem": {
         "type": "object",
         "additionalProperties": false,
@@ -5273,46 +5315,28 @@
           }
         }
       },
-      "ApiGetMemberShip2Request": {
+      "ApiShip2Response": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "api_sort_key": {
-            "type": "string"
-          },
-          "api_verno": {
-            "type": "string"
-          },
-          "spi_sort_order": {
-            "type": "string"
-          }
-        }
-      },
-      "ApiGetMemberShip3Response": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "api_deck_data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/FleetDataDto"
-            }
-          },
-          "api_ship_data": {
+          "api_data": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ApiShip"
             }
           },
-          "api_slot_data": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "array",
-              "items": {
-                "type": "integer",
-                "format": "int32"
-              }
+          "api_data_deck": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FleetDataDto"
             }
+          },
+          "api_result": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "api_result_msg": {
+            "type": "string"
           }
         }
       },
@@ -7114,6 +7138,58 @@
           2
         ]
       },
+      "ApiGetMemberShip2Request": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "api_sort_key": {
+            "type": "string"
+          },
+          "api_verno": {
+            "type": "string"
+          },
+          "spi_sort_order": {
+            "type": "string"
+          }
+        }
+      },
+      "ApiResponseOfApiGetMemberShip3Response": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "api_data": {
+            "$ref": "#/components/schemas/ApiGetMemberShip3Response"
+          },
+          "api_result": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "api_result_msg": {
+            "type": "string"
+          }
+        }
+      },
+      "ApiGetMemberShip3Response": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "api_deck_data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FleetDataDto"
+            }
+          },
+          "api_ship_data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiShip"
+            }
+          },
+          "api_slot_data": {
+            "$ref": "#/components/schemas/ApiGetMemberUnsetslotResponse"
+          }
+        }
+      },
       "ApiGetMemberShip3Request": {
         "type": "object",
         "additionalProperties": false,
@@ -7174,6 +7250,25 @@
             "type": "string"
           },
           "api_verno": {
+            "type": "string"
+          }
+        }
+      },
+      "ApiResponseListOfApiGetMemberSlotItemResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "api_data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiGetMemberSlotItemResponse"
+            }
+          },
+          "api_result": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "api_result_msg": {
             "type": "string"
           }
         }
@@ -7248,9 +7343,21 @@
           }
         }
       },
-      "ApiGetMemberUnsetslotResponse": {
+      "ApiResponseOfApiGetMemberUnsetslotResponse": {
         "type": "object",
-        "additionalProperties": false
+        "additionalProperties": false,
+        "properties": {
+          "api_data": {
+            "$ref": "#/components/schemas/ApiGetMemberUnsetslotResponse"
+          },
+          "api_result": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "api_result_msg": {
+            "type": "string"
+          }
+        }
       },
       "ApiGetMemberUnsetslotRequest": {
         "type": "object",
@@ -16417,14 +16524,7 @@
             }
           },
           "api_unset_list": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "array",
-              "items": {
-                "type": "integer",
-                "format": "int32"
-              }
-            }
+            "$ref": "#/components/schemas/ApiGetMemberUnsetslotResponse"
           }
         }
       },
@@ -21352,6 +21452,22 @@
             "description": "0, 1, 2, 3 - number of active smokers \nnull - old data only?",
             "format": "int32",
             "nullable": true
+          }
+        }
+      },
+      "ApiResponseOfApiStart2GetDataResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "api_data": {
+            "$ref": "#/components/schemas/ApiStart2GetDataResponse"
+          },
+          "api_result": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "api_result_msg": {
+            "type": "string"
           }
         }
       },
